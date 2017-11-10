@@ -1,6 +1,6 @@
 <template>
   <div id='app'>
-    <router-view></router-view>
+    <router-view></router-view>     <!-- 总路由视图 -->
   </div>
 </template>
 
