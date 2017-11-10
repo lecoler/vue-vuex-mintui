@@ -1,9 +1,9 @@
 <template>
   <div class='balance' @click.stop='hidden()'>
     <div class='balanceBox' @click='stop($event)'>
-      <span hidden>{{$store.state.number}}</span>
+      <span hidden>{{$store.state.number}}</span>       <!-- 用于绑定数据更新时,页面重新渲染 -->
       <ul>
-        <li v-for='item in names' :id='item' v-show='number[item] > 0'>
+        <li v-for='item in names' :id='item' v-show='number[item] > 0'>     <!-- 数量>0,显示;否则display:none -->
           <span>{{item}}</span>
           <div class="iconBox fr">
             <span class="i" @click='reduce({data:price[item],name:item})'>-</span>
@@ -100,7 +100,7 @@
     store,
     data() {
       return {
-        names: {}
+        names: {}         //初始化商品名{商品名:商品名}
       }
     },
     components: {btuBox},
@@ -109,7 +109,7 @@
         let box = this.$el
         box.style.display = 'none'
       },
-      stop(event) {
+      stop(event) {                 //阻止冒泡
         event.stopPropagation()
       },
       ...mapActions(['add', 'reduce'])
@@ -120,7 +120,7 @@
     updated() {
       let arr = this.number;
       for (let key in arr) {
-        Vue.set(this.names, key, key)
+        Vue.set(this.names, key, key)         //在对象names添加'商品名:商品名'
       }
     }
 
