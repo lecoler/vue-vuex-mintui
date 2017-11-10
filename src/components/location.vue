@@ -1,3 +1,4 @@
+<!-- 定位组件 -->
 <template>
   <div class='body'>
     <mt_header :msg='title'></mt_header>
@@ -15,8 +16,8 @@
     components: {mt_header, search},
     data() {
       return {
-        title: '选择收货地址',
-        searchText: '请输入收货地址'
+        title: '选择收货地址',            //header的title
+        searchText: '请输入收货地址'       //search中的value
       }
     }
   }
