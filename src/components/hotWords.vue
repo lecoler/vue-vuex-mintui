@@ -1,3 +1,4 @@
+<!-- hotWords组件 -->
 <template>
   <div class='hotWords'>
     <ul @touchstart='lisMove($event)'>
@@ -61,39 +62,39 @@
 <script>
   export default {
   methods: {
-    lisMove: function (event) {
+    lisMove: function (event) {               //触摸移动,弹性滑动
       let ul = this.$el.children[0]
       let left = ul.style.marginLeft;
       let lis = ul.children;
-      var width = 0;
-      for (let li of lis) {
-        width += li.offsetWidth
+      var width = 0;                      //初始化width
+      for (let li of lis) {               //遍历li
+        width += li.offsetWidth           //获取各个li的width
       }
-      width -= ul.parentNode.offsetWidth;
-      if (left) {
+      width -= ul.parentNode.offsetWidth;     //width实际能滑动的距离
+      if (left) {                         //初始化left
         left = parseFloat(left);
       } else {
         left = 0;
       }
-      let startX = event.touches[0].clientX
+      let startX = event.touches[0].clientX             //起点坐标
       ul.ontouchmove = function (eve) {
-        let X = left + eve.touches[0].clientX - startX;
+        let X = left + eve.touches[0].clientX - startX;       //滑动距离
 
-        if (X > 0) {
-          if (X < 30) {
+        if (X > 0) {                  //向右滑,缓冲30px
+          if (X < 30) {       
             ul.style.marginLeft = X + 'px';
           } else {
             ul.style.marginLeft = 30 + 'px';
           }
-        } else {
+        } else {                    //向左滑,缓冲30px
           if(width>0){
-            if (X > -width - 30) {
+            if (X > -width - 30) {                  //当ul的实际内容超出屏幕宽时
               ul.style.marginLeft = X + 'px';
             } else {
               ul.style.marginLeft = -width - 30 + 'px';
             }
-          }else {
-            if(X > -30){
+          }else {                                //当ul的实际内容没超出屏幕宽时
+            if(X > -30){                    
               ul.style.marginLeft = X + 'px';
             }else {
               ul.style.marginLeft = - 30 + 'px';
@@ -105,9 +106,9 @@
           if (X > 0) {
             ul.style.marginLeft = 0 + 'px';
           }else if(X < -width){
-            if(width>0){
+            if(width>0){      //当ul的实际内容超出屏幕宽时
               ul.style.marginLeft = -width + 'px';
-            }else {
+            }else {         //当ul的实际内容没超出屏幕宽时
               ul.style.marginLeft = 0 + 'px';
             }
           }
