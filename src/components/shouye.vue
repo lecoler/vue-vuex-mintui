@@ -1,3 +1,4 @@
+<!-- 首页组件 -->
 <template>
   <div class='body'>
     <div class='header'>
@@ -78,9 +79,9 @@
     components: {searched, hotWords, tabNav, hotshop, tabbar},
     data() {
       return {
-        location: '正在定位...',
-        searchText: '请输入商家名、商品名称',
-        redColor: 'redColor'
+        location: '正在定位...',                //定位地址
+        searchText: '请输入商家名、商品名称',        //search框的默认value
+        redColor: 'redColor'                    //底部菜单栏的对应图标样式
       }
     }
   }
