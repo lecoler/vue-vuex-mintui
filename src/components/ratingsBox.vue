@@ -1,7 +1,7 @@
+<!-- 评论组件 -->
 <template>
   <div class='ratingsBox'>
     <div class="header">
-      <!--<i class='iconfont icon-touxiang'></i>-->
       <img :src="avatar" class='touxiang'>
       <p>{{username}}<span>{{time}}</span></p>
       <p><i class='iconfont' v-for='item in scoreArr' :class='item'></i><span id='deliveryTime'>{{deliveryTime}}分钟到达</span>
@@ -84,20 +84,20 @@
 
 <script>
   export default {
-    props: ['username', 'rateTime', 'deliveryTime', 'text', 'avatar', 'score', 'recommend'],
+    props: ['username', 'rateTime', 'deliveryTime', 'text', 'avatar', 'score', 'recommend'],      //接收数据
     data() {
       return {
-        time: '',
-        scoreArr: [],
-        url:''
+        time: '',           //初始化评论时间
+        scoreArr: [],       //初始化评分的星星样式数组
+        url:''              //初始化评论的图片路径
       }
     },
-    mounted: function () {
-      this.time = new Date(this.rateTime).toLocaleDateString();
-      if (!this.deliveryTime) {
+    mounted: function () {      
+      this.time = new Date(this.rateTime).toLocaleDateString();           //将数据中时间转换成本地的时间格式显示
+      if (!this.deliveryTime) {                                           //判断是否有配送到的时间
         this.$el.querySelector('#deliveryTime').innerHTML = '&nbsp;'
       }
-      let changeScore = (num, scoreArr) => {
+      let changeScore = (num, scoreArr) => {            //处理score数据，改成scoreArr数组（储存评分星星的类名）,传入分数和接收数组
         num = parseInt(num * 2) / 2;
         for (let i = 1; i <= num; i++) {
           scoreArr.push('icon-xingxing')
@@ -109,7 +109,7 @@
         for (let i = 1; i <= need; i++) {
           scoreArr.push('icon-xing-kong')
         }
-      }   //处理score数据，改成scoreArr数组（储存评分星星的类名）,传入分数和接收数组
+      }   
       changeScore(this.score,this.scoreArr)
 
 
