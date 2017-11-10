@@ -1,3 +1,4 @@
+<!-- 登录 -->
 <template>
   <div>
     <mt-header title="返回" class='back'>
@@ -163,12 +164,12 @@
   export default {
     data() {
       return {
-        selected: '1'
+        selected: '1'       //<mt-tab-container-item>
       }
     },
     methods: {
-      back() {
-        history.back()
+      back() {            //回到上一天历史浏览记录
+        history.back()        
       }
     }
   }
