@@ -1,3 +1,4 @@
+<!-- 首页上的热门商家组件 -->
 <template>
   <div class='body'>
     <h4>推荐商家</h4>
