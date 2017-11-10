@@ -1,3 +1,4 @@
+<!-- 店铺页面组件 -->
 <template>
   <div>
     <balance></balance>
@@ -552,37 +553,36 @@
     }),
     components: {ratingsBox, btuBox, balance},
     data() {
-      return {
-        imgsrc: '',
-        name: '',
-        bulletin: '',
-        sellCount: 0,
-        minPrice: 0,
-        deliveryTime: 0,
-        description: '',
-        deliveryPrice: 0,
-        score: 0,
-        serviceScore: 0,
-        serviceScoreArr: [],
-        foodScore: 0,
-        foodScoreArr: [],
-        rankRate: 0,
-        active: {},
-        activeCount: 1,
-        infos: [],
-        selected: '1',
-        goodsName: [],
-        goods: [],
-        foods: {},
-        pics: [],
-        infos: [],
-        ratings: {},
+      return {                  //初始化数据
+        imgsrc: '',             //图片url
+        name: '',               //商店名字
+        bulletin: '',           //商店简介
+        sellCount: 0,           //出售数量
+        minPrice: 0,            //最低价格起配送
+        deliveryTime: 0,        //配送时间
+        description: '',        //配送详情
+        deliveryPrice: 0,       //配送费用
+        score: 0,               //总评分
+        serviceScore: 0,        //服务分
+        serviceScoreArr: [],    //服务分所对应的星星类名样式数组
+        foodScore: 0,           //食物分
+        foodScoreArr: [],       //食物分所对应的星星类名样式数组
+        rankRate: 0,            //竞争率
+        active: {},             //活动
+        activeCount: 1,         //活动数量
+        infos: [],              //商店信息
+        selected: '1',          //对应的<mt-tab-container-item>
+        goodsName: [],          //商品名字
+        goods: [],              //商品
+        foods: {},              //食物
+        pics: [],               //食物单价         
+        ratings: {},            //评价
       }
     },
-    created: function () {
-      this.getData()
+    created: function () {      //页面创建完,还未渲染页面时
+      this.getData()            //执行ajax请求数据
     },
-    updated: function () {
+    updated: function () {      //数据更新时执行
       let nav = this.$el.querySelector('nav');
       let shopCar = this.$el.querySelector('.rbox').children[0];
       let main = this.$el.querySelector('main')
@@ -590,20 +590,20 @@
       let lis = ul.querySelectorAll('li');
       let boxs = main.querySelectorAll('.box');
       let topArr = [];                    //各个的li所对应内容的scrollTop值
-      for (let top of boxs) {
+      for (let top of boxs) {             //储存各个的li所对应内容的scrollTop值
         topArr.push(top.offsetTop + 150);
-      }       //储存各个的li所对应内容的scrollTop值
+      }       
 
-      let changeBC = (index) => {
+      let changeBC = (index) => {        //处理左侧栏变色,排他改变背景色，传要变色的下标
         for (let i of lis) {
           i.removeAttribute('class');
         }
         lis[index].className = 'white';
-      }     //排他改变背景色，传要变色的下标
+      }    
 
-      window.addEventListener('scroll', () => {
+      window.addEventListener('scroll', () => {           //监听滚动事件
         var scroll = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;  //获取scrollTop值
-        if (scroll >= 150) {
+        if (scroll >= 150) {                 //固定侧栏
           nav.style.position = 'fixed';
           nav.style.top = 0;
           main.style.marginTop = '50px';
@@ -613,53 +613,53 @@
           nav.removeAttribute('style');
           ul.removeAttribute('style');
           main.removeAttribute('style');
-        }    //固定侧栏
-        for (let i in topArr) {
-          if (+i == 0) {
+        }   
+        for (let i in topArr) {             //遍历右侧栏内容高度,与左侧栏双向绑定
+          if (+i == 0) {                   //处理第一个
             if (scroll < topArr[+i + 1]) {
               changeBC(i)
             }
             continue
-          }  //处理第一个
-          if (i == topArr.length - 1) {
+          }  
+          if (i == topArr.length - 1) {     //处理最后一个
             if (scroll >= topArr[i]) {
               changeBC(i)
             }
             break
-          }     //处理最后一个
-          if (scroll >= topArr[i] && scroll < topArr[+i + 1]) {
+          }     
+          if (scroll >= topArr[i] && scroll < topArr[+i + 1]) {     //将右侧的内容与侧栏对应样式绑定
             changeBC(i)
           }
-        }     //将右侧的内容与侧栏对应样式绑定
+        }     
 
-      })    //监听滚动事件
+      })    
 
-      if(this.money) {
-        shopCar.style.color = 'skyblue';
-        shopCar.className = 'iconfont icon-gouwucheman';
-        this.$el.querySelector('.btu').style.display = 'block';
-        shopCar.onclick = () => {
-          if(this.$el.querySelector('.balance').style.display != 'block'){
+      if(this.money) {                    //判断是否有购物,有则
+        shopCar.style.color = 'skyblue';      //改变字体颜色
+        shopCar.className = 'iconfont icon-gouwucheman';    //改变样式
+        this.$el.querySelector('.btu').style.display = 'block';     //显示'立即结算'按钮
+        shopCar.onclick = () => {       //给底部购物车绑定点击事件
+          if(this.$el.querySelector('.balance').style.display != 'block'){    //判断balance组件是否显示
             this.$el.querySelector('.balance').style.display = 'block';
           }else {
             this.$el.querySelector('.balance').style.display = 'none';
           }
         }
-      }else {
+      }else {         //否则,移除一切
         shopCar.removeAttribute('style');
         shopCar.className = 'iconfont icon-gouwuche';
-        shopCar.onclick = null;
+        shopCar.onclick = null;     //移除点击事件
         this.$el.querySelector('.btu').style.display = 'none';
-      }       //处理购物车
-    },          //数据更新时执行
+      }       
+    },          
     methods: {
-      getData: function () {
+      getData: function () {                //用vue-resource的ajax请求数据
         this.$http.get('/static/data.json').then((success) => {
           // 响应成功回调
           success = success.body;
           console.log(success);
-          this.imgsrc = success.seller.avatar;
-          this.name = success.seller.name;
+          this.imgsrc = success.seller.avatar;                            //处理数据
+          this.name = success.seller.name;                                //↑
           this.sellCount = success.seller.sellCount;
           this.minPrice = success.seller.minPrice;
           this.deliveryTime = success.seller.deliveryTime;
@@ -674,29 +674,28 @@
           this.goods = success.goods;
           this.pics = success.seller.pics;
           this.bulletin = success.seller.bulletin;
-          this.infos = success.seller.infos;
-          this.ratings = success.ratings;
+          this.infos = success.seller.infos;                               //↓
+          this.ratings = success.ratings;                                 //处理数据
 
-
-          let changeActive = () => {
+          let changeActive = () => {                              //处理supports数据，改成active对象
             let activeContent = success.seller.supports;
             for (let i of activeContent) {
               this.active[i.type] = i.description
             }
-          }    //处理supports数据，改成active对象
-          let changeGoods = () => {
+          }    
+          let changeGoods = () => {                             //处理goods数据，改成goodsName数组
             let goodsContent = this.goods;
             for (let i = 1; i < goodsContent.length; i++) {
               this.goodsName.push(goodsContent[i].name);
             }
-          }     //处理goods数据，改成goodsName数组
-          let changeFoods = () => {
+          }     
+          let changeFoods = () => {                             //处理goods数据，改成foods对象
             let foodsContent = this.goods;
             for (let i = 0; i < foodsContent.length; i++) {
               this.foods[foodsContent[i].name] = foodsContent[i].foods
             }
-          }     //处理goods数据，改成foods对象
-          let changeScore = (num, scoreArr) => {
+          }     
+          let changeScore = (num, scoreArr) => {              //处理score数据，改成scoreArr数组（储存评分星星的类名）,传入分数和接收数组
             num = parseInt(num * 2) / 2;
             for (let i = 1; i <= num; i++) {
               scoreArr.push('icon-xingxing')
@@ -708,7 +707,7 @@
             for (let i = 1; i <= need; i++) {
               scoreArr.push('icon-xing-kong')
             }
-          }   //处理score数据，改成scoreArr数组（储存评分星星的类名）,传入分数和接收数组
+          }   
           changeScore(this.serviceScore, this.serviceScoreArr)
           changeScore(this.foodScore, this.foodScoreArr)
           changeActive()
@@ -720,45 +719,45 @@
           // 响应错误回调
           console.log(err);
         });
-      },      //ajax获取数据
-      to: function (id) {
+      },     
+      to: function (id) {                    //跳转到页面内对应的内容
         let eleTop = document.querySelector(id).offsetTop + 150;
         window.scrollTo(0, eleTop)
-      },  //跳转到页面内对应的内容
-      lisMove: function (event) {
+      }, 
+      lisMove: function (event) {                   //侧栏的弹性滑动
         let ul = this.$el.querySelector('aside').children[0];
         let top = ul.style.marginTop;
         var height = document.documentElement.clientHeight - 100 - ul.offsetHeight;
-        if (top) {
-          top = parseFloat(top);
-        } else {
-          top = 0;
+        if (top) {                    //判断top是否存在
+          top = parseFloat(top);      //转化成number类型
+        } else {  
+          top = 0;                    //初始化为0
         }
-        let startY = event.touches[0].clientY;
-        ul.ontouchmove = function (eve) {
-          let Y = top + eve.touches[0].clientY - startY;
-          if (Y > 0) {
-            if (Y < 50) {
+        let startY = event.touches[0].clientY;            //记录起点坐标
+        ul.ontouchmove = function (eve) {                 //监听触摸移动事件
+          let Y = top + eve.touches[0].clientY - startY;  //记录实际移动距离
+          if (Y > 0) {                    //向下移
+            if (Y < 50) {                 //缓存50px
               ul.style.marginTop = Y + 'px';
             } else {
               ul.style.marginTop = 50 + 'px';
             }
-          } else {
-            if (Y > -height - 50) {
+          } else {                      //向上移
+            if (Y > -height - 50) {      //缓存50px
               ul.style.marginTop = Y + 'px';
             } else {
               ul.style.marginTop = -height - 50 + 'px';
             }
           }
           ul.ontouchend = function () {
-            if (Y > 0) {
+            if (Y > 0) {            //向下移动触摸停止后,回到0px
               ul.style.marginTop = 0 + 'px';
-            } else if (Y < -height) {
+            } else if (Y < -height) {         //向上移动触摸停止后,回到-height px
               ul.style.marginTop = -height + 'px';
             }
           }
         }
-      }  //侧栏的弹性滑动
+      } 
     }
   }
 
