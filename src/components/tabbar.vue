@@ -1,3 +1,4 @@
+<!-- 底部菜单栏组件 -->
 <template>
   <div>
     <ul id='tab-nav'>
