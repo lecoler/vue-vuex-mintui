@@ -1,3 +1,4 @@
+<!-- 首页上每家店组件(该组件是多余的,其存在仅仅为了处理数据) -->
 <template>
   <div>
     <shopBox
@@ -41,7 +42,7 @@
       this.getData()
     },
     methods: {
-      getData: function () {
+      getData: function () {        //ajax请求数据
         this.$http.get('/static/data.json').then((success) => {
           // 响应成功回调
           success = success.body;
@@ -56,7 +57,7 @@
           this.activeCount = success.seller.supports.length-1;
 
 
-          let changeActive = () =>{
+          let changeActive = () =>{               //处理数据active
             let activeContent = success.seller.supports;
             for(let i of activeContent){
               if(i.type == activeContent.length-2){
@@ -65,7 +66,7 @@
               this.active[i.type]=i.description
             }
           }
-          let changeScore = () =>{
+          let changeScore = () =>{                  //处理score,将其转换成星星的样式,以数组储存
             let num = success.seller.score;
             num = parseInt(num*2)/2;
             for(let i = 1; i<=num;i++){
