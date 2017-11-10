@@ -1,3 +1,4 @@
+<!-- balance组件(底部购物车结算组件) -->
 <template>
   <div class='balance' @click.stop='hidden()'>
     <div class='balanceBox' @click='stop($event)'>
