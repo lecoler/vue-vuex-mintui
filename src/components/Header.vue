@@ -22,10 +22,10 @@
 <script>
   export default {
     props: {
-      msg: String
+      msg: String           //接受title的值
     },
     methods: {
-      back() {
+      back() {            //返回上一条历史浏览记录
         history.back()
       }
     }
