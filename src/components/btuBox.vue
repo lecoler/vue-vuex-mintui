@@ -43,7 +43,7 @@
 
   export default {
     store,
-    props: ['data', 'name'],
+    props: ['data', 'name'],          //接受data:价格,name:商品名
     methods: {
       ...mapActions(['add', 'reduce']),
       show() {
@@ -65,7 +65,7 @@
     },
     computed: mapState({
       number: function (state) {
-        return state.number[this.name]
+        return state.number[this.name]      
       }
     }),
     mounted() {
