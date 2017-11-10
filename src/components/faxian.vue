@@ -78,8 +78,8 @@
     components: {mt_header, tabbar},
     data() {
       return {
-        title: '发现',
-        redColor: 'redColor'
+        title: '发现',            //mt_header 标题
+        redColor: 'redColor'      //底部tabbar对应的字体图标颜色
       }
     }
   }
