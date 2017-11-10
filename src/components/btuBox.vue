@@ -1,3 +1,4 @@
+<!-- 商品数量加减按钮组件 -->
 <template>
   <div class="iconBox fr">
     <span class="i" @click='reduce({data:data,name:name}),hidden()'>-</span>
