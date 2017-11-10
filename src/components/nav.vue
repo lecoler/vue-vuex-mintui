@@ -1,3 +1,4 @@
+<!-- 首页菜单组件 -->
 <template>
   <div>
     <mt-swipe :auto="0" class='tabNav'>
