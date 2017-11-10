@@ -1,3 +1,4 @@
+<!-- 发现组件 -->
 <template>
   <div class='body'>
     <mt_header :msg='title'></mt_header>
