@@ -20,8 +20,8 @@
     components: {mt_header, tabbar},
     data() {
       return {
-        title: '订单',
-        redColor: 'redColor'
+        title: '订单',              //mt_header标题
+        redColor: 'redColor'        //底部tabbar对应的图标颜色
       }
     }
   }
