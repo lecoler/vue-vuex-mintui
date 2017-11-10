@@ -1,3 +1,4 @@
+<!-- header组件-->
 <template>
   <div>
     <mt-header fixed :title=msg class='header'>
