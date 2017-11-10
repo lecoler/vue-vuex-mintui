@@ -1,3 +1,4 @@
+<!-- 首页中每家店的组件 -->
 <template>
   <div class='box'>
     <router-link to='/shouye/good'>
@@ -160,13 +161,13 @@
       scoreArr: Array
     },
     methods: {
-      pull: function () {
+      pull: function () {           //下拉事件
         let btu = this.$el.querySelector('#btu');
         let activeBox = this.$el.querySelector('.activeBox');
         let height = activeBox.children;
         height = height.length * 30;
         console.log(activeBox);
-        if (btu.style.transform == 'rotate(180deg)') {
+        if (btu.style.transform == 'rotate(180deg)') {      //判断按钮是否旋转
           btu.style.transform = 'rotate(0deg)';
           activeBox.style.height = '50px';
         } else {
