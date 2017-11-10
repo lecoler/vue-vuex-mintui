@@ -1,3 +1,4 @@
+<!-- 搜索框组件 -->
 <template>
   <div class='search'>
     <i class='mintui mintui-search'></i>
@@ -52,20 +53,20 @@
   export default {
     data() {
       return {
-        search: ''
+        search: ''      //初始化search的value
       }
     },
     props: {
-      msg: String
+      msg: String       //接收search框默认value
     },
     methods: {
-      delAll: function () {
-        this.search = ''
+      delAll: function () {       //清空搜索框
+        this.search = ''      
       }
     },
     updated: function () {
       let btu = document.querySelector('.search').querySelector('button');
-      if (this.search) {
+      if (this.search) {                //当搜索框有value时将显示button,反之隐藏
         btu.style.display = 'block';
       } else {
         btu.style.display = 'none';
